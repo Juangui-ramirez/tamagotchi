@@ -1,0 +1,72 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.frame{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+h1{
+    font-size: 200%;
+    z-index: 1;
+    position: absolute;
+    top:20%;
+}
+
+section img{
+    width: 40%;
+}
+
+.mob{
+    position: absolute;
+    top: 28%;
+    left: 44%;
+    z-index: 1;
+    width: 50%;
+    max-width: 400px;
+}
+
+.buttons{
+    display: flex;
+    gap: 30px;
+    position: absolute;
+    z-index: 1;
+    top:75%;
+}
+
+button{
+    width: 120px;
+    height: 50px;
+    background-color: aliceblue;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 10px;
+}
+
+.energyBar {
+    width: 200px;
+    height: 20px;
+    background-color: #f1f1f1;
+    border-radius: 10px;
+    overflow: hidden;
+    position: absolute;
+    z-index: 1;
+    top:60%;
+  }
+  
+  .energyProgress {
+    height: 100%;
+    background-color: #4caf50;
+    width: 100%;
+    transition: width 0.5s;
+    position: absolute;
+    z-index: 1;
+  }
