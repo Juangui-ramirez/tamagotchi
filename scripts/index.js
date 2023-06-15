@@ -63,6 +63,9 @@ const showPokemon = async (pokemon, evo1, evo2) => {
   let expBase = pokemonData.base_experience;
 
   const btnWorkout = document.querySelector(".workout");
+  let hasEvo1 = false;
+  let hasEvo2 = false;
+  let expReq = evo1Data.base_experience;
 
   btnWorkout.addEventListener("click", async function () {
     if (energy <= 10 || isSleeping == true) {
@@ -70,13 +73,13 @@ const showPokemon = async (pokemon, evo1, evo2) => {
       return;
     }
 
-    expBase = expBase + 5;
+    expBase = expBase + 15;
     energy = energy - 10;
     updateEnergy();
 
-    let expReq = evo1Data.base_experience;
-
-    if (expBase >= expReq) {
+    if (expBase >= expReq && !hasEvo1) {
+        hasEvo1 = true;
+        alert("Your Pokemon is evolving");
       pokeimg.src =
         evo1Data.sprites.versions["generation-v"][
           "black-white"
@@ -84,15 +87,17 @@ const showPokemon = async (pokemon, evo1, evo2) => {
       pokeName.textContent = evo1Data.name;
 
       expReq = evo2Data.base_experience;
+    }
 
-      if (expBase >= expReq) {
+    if (expBase >= expReq && !hasEvo2) {
+        hasEvo2 = true;
+        alert("Your Pokemon is evolving again");
         pokeimg.src =
           evo2Data.sprites.versions["generation-v"][
             "black-white"
           ].animated.front_shiny;
         pokeName.textContent = evo2Data.name;
       }
-    }
   });
 
   const btnSleep = document.querySelector(".sleep");
@@ -115,7 +120,7 @@ const showPokemon = async (pokemon, evo1, evo2) => {
     updateEnergy();
 
     energyInterval = setInterval(function () {
-      energy += 1;
+      energy += 7;
       updateEnergy();
 
       if (energy >= 100) {
