@@ -50,18 +50,22 @@ const showPokemon = async (pokemon, evo1, evo2) => {
 
   const pokeimg = document.querySelector(".poke");
   const pokeName = document.querySelector(".namePoke");
+  const sleepImg = document.querySelector(".sleepImg");
+
+  sleepImg.src = "assets/sleeping.gif";
 
   pokeimg.src =
     pokemonData.sprites.versions["generation-v"][
       "black-white"
     ].animated.front_shiny;
+
   pokeName.textContent = pokemonData.name;
   let expBase = pokemonData.base_experience;
 
   const btnWorkout = document.querySelector(".workout");
 
   btnWorkout.addEventListener("click", async function () {
-    if (energy <= 10) {
+    if (energy <= 10 || isSleeping == true) {
       alert(`${pokeName.textContent} needs to sleep`);
       return;
     }
@@ -92,6 +96,7 @@ const showPokemon = async (pokemon, evo1, evo2) => {
   });
 
   const btnSleep = document.querySelector(".sleep");
+  const body = document.querySelector("body");
   let isSleeping = false;
   let energyInterval;
 
@@ -101,18 +106,25 @@ const showPokemon = async (pokemon, evo1, evo2) => {
       return;
     }
 
+    pokeimg.classList.add("hidden");
+    sleepImg.classList.add("show");
+    body.classList.add("sleep");
+
     isSleeping = true;
-    energy = 10;
+    energy = energy;
     updateEnergy();
 
     energyInterval = setInterval(function () {
-      energy += 10;
+      energy += 1;
       updateEnergy();
 
       if (energy >= 100) {
         clearInterval(energyInterval);
         isSleeping = false;
         alert(`${pokeName.textContent} woke up!`);
+        pokeimg.classList.remove("hidden");
+        sleepImg.classList.remove("show");
+        body.classList.remove("sleep");
       }
     }, 1000);
   });
@@ -121,11 +133,11 @@ const showPokemon = async (pokemon, evo1, evo2) => {
     showEnergy.style.width = `${energy}%`;
 
     if (energy <= 20) {
-      showEnergy.style.backgroundColor = "#ff0000"; // Cambiar a rojo si la energía es baja
+      showEnergy.style.backgroundColor = "#ff0000";
     } else if (energy <= 50) {
-      showEnergy.style.backgroundColor = "#ffa500"; // Cambiar a naranja si la energía es media
+      showEnergy.style.backgroundColor = "#ffa500";
     } else {
-      showEnergy.style.backgroundColor = "#4caf50"; // Mantener verde si la energía es alta
+      showEnergy.style.backgroundColor = "#4caf50";
     }
   }
 };
