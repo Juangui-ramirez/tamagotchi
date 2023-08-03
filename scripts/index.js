@@ -5,9 +5,19 @@ const getPokemon = async () => {
     const res = await fetch(`${url}?offset=0&limit=9`);
     const data = await res.json();
 
-    const choosePoke = prompt(
-      "Choose your Poke: 1) Bulbasaur, 2) Charmander, 3) Squirtle"
-    );
+    let choosePoke;
+
+    while (true) {
+      choosePoke = prompt(
+        "Choose your Poke: 1) Bulbasaur, 2) Charmander, 3) Squirtle"
+      );
+
+      if (choosePoke === "1" || choosePoke === "2" || choosePoke === "3") {
+        break;
+      } else {
+        alert("Option Invalid");
+      }
+    }
 
     let pokemonIndex;
 
@@ -21,9 +31,6 @@ const getPokemon = async () => {
       case "3":
         pokemonIndex = 6;
         break;
-      default:
-        alert("Option Invalid");
-        return;
     }
 
     await showPokemon(
